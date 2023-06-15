@@ -1,16 +1,15 @@
-import fs from "fs";
+import fs from "fs/promises";
 
 const create = async () => {
   const path = "./files/fresh.txt";
   const content = "I am fresh and young";
 
-  fs.writeFile(path, content, (err) => {
-    if (err) {
-      throw new Error("FS operation failed");
-    }
-
+  try {
+    await fs.writeFile(path, content);
     console.log("Success");
-  });
+  } catch (error) {
+    throw new Error("FS operation failed");
+  }
 };
 
 await create();
