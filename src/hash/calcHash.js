@@ -1,10 +1,17 @@
+// node src/hash/calcHash
+
 import fs from "fs";
 import crypto from "crypto";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destination = path.join(__dirname, "files", "fileToCalculateHashFor.txt");
 
 const calculateHash = async () => {
-  const filePath = "./files/fileToCalculateHashFor.txt";
   const hash = crypto.createHash("sha256");
-  const input = fs.createReadStream(filePath);
+  const input = fs.createReadStream(destination);
   return new Promise((resolve, reject) => {
     input.on("readable", () => {
       const data = input.read();

@@ -1,3 +1,6 @@
+//  node src/streams/transform
+// write smth in terminal and "Enter"
+
 import { Transform } from "stream";
 
 const transform = async () => {

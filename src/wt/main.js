@@ -1,5 +1,12 @@
+// node src/wt/main
 import os from "os";
 import { Worker, isMainThread } from "worker_threads";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const workerPath = path.join(__dirname, "worker.js");
 
 const performCalculations = async () => {
   const numCPUs = os.cpus().length;
@@ -9,7 +16,7 @@ const performCalculations = async () => {
     let num = 10;
 
     for (let i = 0; i < numCPUs; i++) {
-      const worker = new Worker("./worker.js");
+      const worker = new Worker(workerPath);
 
       worker.on("message", (result) => {
         results.push(result);

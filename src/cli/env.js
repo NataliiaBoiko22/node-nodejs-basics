@@ -1,3 +1,4 @@
+//npx cross-env SOME=any RSS_foo=bar RSS_bar=baz node src/cli/env.js
 const parseEnv = () => {
   const prefix = "RSS_";
   const filteredVariables = Object.entries(process.env)

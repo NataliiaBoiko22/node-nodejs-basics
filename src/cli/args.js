@@ -1,3 +1,4 @@
+//  node src/cli/args --propName "RS" --prop2Name "School"
 const parseArgs = () => {
   const args = process.argv;
   const parsedArgs = {};

@@ -1,3 +1,4 @@
+//node src/modules/esm.mjs
 import path from "path";
 import { fileURLToPath } from "url";
 import { release, version } from "os";
