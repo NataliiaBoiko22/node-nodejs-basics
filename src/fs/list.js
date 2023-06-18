@@ -1,11 +1,17 @@
+// node src/fs/list
+
 import fs from "fs/promises";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const source = path.join(__dirname, "files");
 
 const list = async () => {
-  const folderPath = "./files";
-
   try {
-    await fs.access(folderPath);
-    const files = await fs.readdir(folderPath);
+    await fs.access(source);
+    const files = await fs.readdir(source);
     console.log("File List:");
     files.forEach((file) => {
       console.log(file);

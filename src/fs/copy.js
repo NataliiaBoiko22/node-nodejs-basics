@@ -1,25 +1,36 @@
+// node src/fs/copy
+
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const source = path.join(__dirname, "files");
+const destination = path.join(__dirname, "files_copy");
 
 const copy = async () => {
-  const sourcePath = "./files";
-  const copyPath = "./files_copy";
-
   try {
-    if (
-      (await fs.access(sourcePath).catch(() => true)) ||
-      (await fs.access(copyPath).catch(() => false))
-    ) {
+    const sourcePathExists = await fs
+      .access(source)
+      .then(() => true)
+      .catch(() => false);
+    const copyPathExists = await fs
+      .access(destination)
+      .then(() => true)
+      .catch(() => false);
+
+    if (!sourcePathExists || copyPathExists) {
       throw new Error("FS operation failed");
     }
 
-    await fs.mkdir(copyPath);
+    await fs.mkdir(destination);
 
-    const files = await fs.readdir(sourcePath);
+    const files = await fs.readdir(source);
 
     for (const file of files) {
-      const sourceFile = path.join(sourcePath, file);
-      const destinationFile = path.join(copyPath, file);
+      const sourceFile = path.join(source, file);
+      const destinationFile = path.join(destination, file);
 
       const fileContent = await fs.readFile(sourceFile);
 
